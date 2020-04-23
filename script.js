@@ -4,7 +4,7 @@ var timeEl = document.querySelector(".time");
 // var mainEl = document.querySelector("main");
 // var startBtn = document.createElement(".btn");
 
-var secondsLeft = 10;
+var secondsLeft = 75;
 var score = 0;
 var total = 0; 
 var incorrect = 0;
@@ -18,7 +18,7 @@ var questions = [
 },
 {
     title: "The condition in an if/else statement is enclosed within ______.",
-    choice: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
     answer: "parentheses"
 },
 {   
@@ -39,6 +39,8 @@ var questions = [
 }
 ]
 
+function 
+// pull quiz button code from activity 19
 
 //countdown timer function
 function setTime() {
@@ -61,7 +63,8 @@ function scoreSreen(){
 }
 
 //start button
-
+create button and appendchild
+create function within arond, style and event listener
 //high scores screen
 
 // start.addEventListener
