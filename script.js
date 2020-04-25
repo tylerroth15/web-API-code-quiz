@@ -1,6 +1,13 @@
 // Var Declaratives
-var headerEl =document.querySelector(".header");
-var timeEl = document.querySelector(".time");
+// var headerEl =document.querySelector(".header");
+var timeEl = document.querySelector(".timer");
+var startBtn =document.createElement("button");
+var questionBtn =document.querySelector(".button-area")
+document.body.appendChild(startBtn);
+startBtn.setAttribute("style", "display:block; text-align: center; height: 60px; width: 80px; margin: auto; background-color: purple; color: #ffffff")
+startBtn.innerHTML ="Start Quiz!";
+startBtn.addEventListener("click", countdown);
+startBtn.addEventListener("click", startGame)
 // var mainEl = document.querySelector("main");
 // var startBtn = document.createElement(".btn");
 
@@ -18,39 +25,39 @@ var questions = [
 },
 {
     title: "The condition in an if/else statement is enclosed within ______.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    choices: ["curly brackets","square brackets", "quotes", "parentheses"],
     answer: "parentheses"
+},
+{
+  title: "A very useful tool used during development and debugging for printing content to the development tools is______.",
+  choices: [ "git bash" ,"console.log", "Javascript","for loops"],
+  answer: "console.log"
+
 },
 {   
     title: "Arrays in Javascript can be used to store ____.", 
-    choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+    choices: ["numbers and strings", "booleans", "other arrays", "all of the above"],
     answer: "all of the above"
 },
 { 
     title: "String values must be enclosed within _____ when being assigned to variables.",
-    choices: ["commas", "curly braces", "quotes", "parrentheses"],
+    choices: ["quotes", "parrentheses", "curly braces", "commas"],
     answer: "quotes"
-},
-{
-    title: "A very useful tool used during development and debugging for printing content to the development tools is______.",
-    choices: ["console.log", "for loops", "Javascript", "git bash"],
-    answer: "console.log"
-  
 }
 ]
-
-function 
 // pull quiz button code from activity 19
 
 //countdown timer function
-function setTime() {
-  var timerInterval = setInterval(function() {
+function countdown() {
+  startBtn.style.display= "none";
+  var timerInterval = setInterval(function(){
     secondsLeft--;
-    timeEl.textContent = secondsLeft + " remaining.";
+    timerEl.textContent = secondsLeft + "remaining.";
 
+  
     if(secondsLeft === 0) {
       clearInterval(timerInterval);
-      sendMessage();
+      scoreScreen();
     }
 
   }, 1000);
@@ -59,16 +66,36 @@ function setTime() {
 //score screen and inital log of what user's score
 
 function scoreSreen(){
-    timeEl
+    timeEl.textContent = "Finished!";
 }
 
+function startGame(event){
+  event.preventDefault();
+
+  var questionEl = document.querySelector(".card-header");
+  questionEl.setAttribute("Style", "display: block")
+
+  questionEl.textContent = "Hello Beautiful"
+}
+
+function handleClick(event){
+  event.preventDefault();
+
+    if(event.target.matches(".answer")){
+      if(event.target.matches(".correct")){
+        greating="Correct Answer!"
+      }else{
+        greating="Incorrect Answer!"
+      }
+    }
+}
 //start button
-create button and appendchild
-create function within arond, style and event listener
+//create button and appendchild
+//create function within arond, style and event listener
 //high scores screen
 
 // start.addEventListener
-document.getElementById("start-btn").addEventListener("click", XXXXX)
-console.log(click)
+//document.getElementById("start-btn").addEventListener("click", XXXXX)
+//console.log(click)
 
-setTime();
+// setTime();
