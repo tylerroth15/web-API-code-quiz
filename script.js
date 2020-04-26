@@ -5,7 +5,7 @@ var startBtn =document.createElement("button");
 
 var openingEl =document.querySelector(".opening");
 var welcomeEl = document.querySelector(".welcome");
-
+var questionsEl = document.querySelector("#questionsEl")
 var answerEl = document.querySelector("#answerEl")
 
 //start button
@@ -18,8 +18,24 @@ startBtn.addEventListener("click", startQuiz);
 // startBtn.addEventListener("click", startQuiz);
 // questionEl.appendChild(startBtn);
 
+var saveScoreInput = document.createElement("input");
+saveScoreInput.className = "form-group p-1";
+saveScoreInput.placeholder = "Enter your initials";
+
+var saveScoreButton = document.createElement("button");
+saveScoreButton.innerHTML = "Save Score";
+saveScoreButton.className = "btn btn-success btn-block";
+saveScoreButton.addEventListener("click", saveUserScore);
+
+var tryAgainButton = document.createElement("button");
+tryAgainButton.innerHTML = "Try Again";
+tryAgainButton.className = "btn btn-info btn-block";
+tryAgainButton.addEventListener("click", function () {
+  window.location.reload();
+});
+
 var questionIndex= 0;
-var secondsLeft = 10;
+var secondsLeft = 75;
 var score = 0;
 var total = 0; 
 var incorrect = 0;
@@ -34,7 +50,7 @@ var questions = [
       b: "booleans",
       c: "alerts", 
       d: "numbers"},
-    answer: "c"
+    correctAnswer: "c"
 },
 {
     title: "The condition in an if/else statement is enclosed within ______.",
@@ -43,7 +59,7 @@ var questions = [
       b: "square brackets", 
       c: "quotes", 
       d: "parentheses"},
-    answer: "d"
+    correctAnswer: "d"
 },
 {
   title: "A very useful tool used during development and debugging for printing content to the development tools is______.",
@@ -52,7 +68,7 @@ var questions = [
     b: "console.log",
     c: "Javascript",
     d: "for loops"},
-  answer: "b"
+  correctAnswer: "b"
 },
 {   
     title: "Arrays in Javascript can be used to store ____.", 
@@ -61,7 +77,7 @@ var questions = [
       b: "booleans",
       c: "other arrays", 
       d: "all of the above"},
-    answer: "d"
+    correctAnswer: "d"
 },
 { 
     title: "String values must be enclosed within _____ when being assigned to variables.",
@@ -70,13 +86,9 @@ var questions = [
       b: "parrentheses", 
       c:"curly braces", 
       d: "commas"},
-    answer: "a"
+    correctAnswer: "a"
 }
 ]
-
-// var saveScoreInput=document.createElement("input");
-// saveScoreInput.className="form-group p-1";
-// saveScoreInput.placeholder="Enter Your Initals";
 
 function startQuiz() {
   questionsEl.appendChild(timerEl);
@@ -108,10 +120,10 @@ function countdown() {
   startBtn.style.display= "none";
   openingEl.style.display= "none";
   welcomeEl.style.display= "none";
-  var timerInterval = setInterval(function(){
+  timerInterval = setInterval(function(){
     secondsLeft--;
     timerEl.innerHTML = secondsLeft + " remaining";
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
       scoreScreen();
     }
 
@@ -119,58 +131,60 @@ function countdown() {
 }
 
 
-function scoreSreen(){ 
+function scoreScreen(){ 
   clearInterval(timerInterval);
   timerEl.remove();
   currentQuestion.remove();
-  hearder.remove();
   answerA.remove();
   answerB.remove();
   answerC.remove();
   answerD.remove();
+
   var timeScore = document.createElement("h2");
   timeScore.innerHTML = "Your Score: " + secondsLeft;
-  questionEl.appendChild(timeScore);
-  // questionEl.appendChild(saveScoreInput);
-  // questionEl.appendChild(saveScoreButton);
+  
+  questionsEl.appendChild(timeScore);
+  questionsEl.appendChild(saveScoreInput);
+  questionsEl.appendChild(saveScoreButton);
+  questionsEl.appendChild(tryAgainButton);
 }
 
-// function startGame(event){
-//   event.preventDefault();
 
-//   var questionEl = document.querySelector(".card-header");
-//   questionEl.setAttribute("Style", "display: block")
-//   cardEl.setAttribute("Style", "display: block")
+function addCorrect() {
+  var correctSpan = document.createElement("span");
+  correctSpan.className = "text-success font-weight-bold m-2";
+  correctSpan.innerHTML = "	&#10003;";
 
-//   questionEl.textContent = questions [0]["title"]
-//   countdown();
-// }
+  answerEl.appendChild(correctSpan);
+}
 
-// function multipleChoice(){
-//   var list= document.createElement("ul");
-//     list.setAttribute("style", "list-style:none");
+function addIncorrect() {
+  var incorrectSpan = document.createElement("span");
+  incorrectSpan.className = "text-danger font-weight-bold m-2";
+  incorrectSpan.innerHTML = "X";
 
-//     for (var i=0; i<questions[current].choices.length; i++){
-//       var li= document.createElement("li");
-//       list.appendChild(li);
-//       var button =document.createElement("button")
-//   }
-// }
+  answerEl.appendChild(incorrectSpan);
+}
 
-// function startGame(event){
-//   event.preventDefault();
+function saveUserScore() {
+  var highScores = getHighScores();
 
-//   var questionEl = document.querySelector("#questionsEl");
-//   questionEl.setAttribute("Style", "display: block")
-//   cardEl.setAttribute("Style", "display: block")
+  var userInitials = saveScoreInput.value;
 
-//   questionEl.textContent = questions [0]["title"]
-//   countdown();
-   
-// }
+  if (userInitials) {
+    highScores.push({ user: userInitials, score: secondsLeft });
+  }
+
+  var sortedScores = sortScores(highScores);
+
+  localStorage.setItem("highScores", JSON.stringify(sortedScores));
+
+  document.getElementById("highScores").click();
+}
 
 var currentQuestion = document.createElement("p");
 currentQuestion.classList = "lead";
+
 var answerA = document.createElement("button");
 answerA.className = "btn btn-success btn-block mb-2";
 answerA.addEventListener("click", function () {
@@ -184,8 +198,6 @@ answerA.addEventListener("click", function () {
   nextQuestion();
 });
 
-var currentQuestion = document.createElement("p");
-currentQuestion.classList = "lead";
 var answerB = document.createElement("button");
 answerB.className = "btn btn-success btn-block mb-2";
 answerB.addEventListener("click", function () {
@@ -200,8 +212,7 @@ answerB.addEventListener("click", function () {
 });
 
 
-var currentQuestion = document.createElement("p");
-currentQuestion.classList = "lead";
+
 var answerC = document.createElement("button");
 answerC.className = "btn btn-success btn-block mb-2";
 answerC.addEventListener("click", function () {
@@ -216,8 +227,8 @@ answerC.addEventListener("click", function () {
 });
 
 
-var currentQuestion = document.createElement("p");
-currentQuestion.classList = "lead";
+
+
 var answerD = document.createElement("button");
 answerD.className = "btn btn-success btn-block mb-2";
 answerD.addEventListener("click", function () {
@@ -231,22 +242,3 @@ answerD.addEventListener("click", function () {
   nextQuestion();
 });
 
-// function nextQuestion() {
-//   if (questionIndex <questions.length) {
-//     // add the currentQuestion
-//     questionEl.appendChild(currentQuestion);
-//     // add the answer buttons
-//     questionEl.appendChild(answerA);
-//     questionEl.appendChild(answerB);
-//     questionEl.appendChild(answerC);
-//     questionEl.appendChild(answerD);
-//     // give the answer buttons and the question their text
-//     currentQuestion.innerHTML = questions[questionIndex].question;
-//     answerA.innerHTML = questions[questionIndex].answers.a;
-//     answerB.innerHTML = questions[questionIndex].answers.b;
-//     answerC.innerHTML = questions[questionIndex].answers.c;
-//     answerD.innerHTML = questions[questionIndex].answers.d;
-//   } else {
-//     scoreScreen();
-//   }
-// }
