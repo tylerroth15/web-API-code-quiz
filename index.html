@@ -14,19 +14,7 @@
 </head>
 
 <body class = "container">
-    <!-- Navbar -->
-    <!-- <nav class= "navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"> </a>
-      <button class="navbar-toggler" type="button"
-      data-toggle="collapse" data-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <span class="navbar-text" class= "timer"></span>
-      </div>
-    </nav> -->
+  
   <header class = "row"> 
       <h2 class = "col md 6"class = "highscore"></h2></h2>
       <h2 class = "timer" class = "col md 6"></h2>
@@ -34,24 +22,19 @@
       </header>
 
       <main>
-        <h1>Code Quiz Challenge</h1>
-            <p>
+        <h1 class="opening">Code Quiz Challenge</h1>
+            <p class="welcome">
                 To test your code knowledge, click the button below to see how your score. 
                 Are you ready to take the challenge?
             </p>
-              <div class="card">
-                <!-- <button id="start-btn" class="btn">Start Quiz</button> -->
-                <div class="card-header" id="title"></div>
-                <div class="card-body">
-                  <div class="button-area">
-                    <button class="answer"></button>
-                    <button class="answer"></button>
-                    <button class="answer correct"></button>
-                    <button class="answer"></button>
-                  </div>
-                </div>
+            <div id="questionsEl" class="row d-flex flex-column"></div>
+            <div id="answerEl" class="row"></div>
+              <!-- <div class="card">
+                <button id="start-btn" class="btn">Start Quiz</button> -->
+                <!-- <div class="card-header" id="title"></div>
+                <div class="card-body"></div>
                 <hr>
-                <div class="card-footer" id="answer"></div>
+                <div class="card-footer" id="answer"></div> -->
               </div>
 
       </main>

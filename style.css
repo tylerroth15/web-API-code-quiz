@@ -24,7 +24,7 @@ p{
   float: right;
   display: block;
 }
-.card {
+/* .card {
     display: none;
     background-color: hsl(0, 0%, 100%);
     border-radius: 5px;
@@ -48,7 +48,7 @@ p{
 hr{
   color: slategrey;
   line-height: 1px;
-}
+} */
 
 /* .card-footer::before {
     content: " ";
@@ -101,11 +101,11 @@ body {
   margin: auto; 
 }
 
-#text1{
+/* #text1{
   text-align: center;
 }
 
 #text2{
   text-align: left;
-}
+} */
 
