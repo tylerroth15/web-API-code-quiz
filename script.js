@@ -142,7 +142,7 @@ function scoreScreen(){
 
   var timeScore = document.createElement("h2");
   timeScore.innerHTML = "Your Score: " + secondsLeft;
-  
+
   questionsEl.appendChild(timeScore);
   questionsEl.appendChild(saveScoreInput);
   questionsEl.appendChild(saveScoreButton);
